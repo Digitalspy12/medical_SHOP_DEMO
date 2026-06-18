@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediFlow CRM - Smart Pharmacy Dashboard</title>
+    <meta name="description"
+        content="Smart pharmacy inventory management and patient care CRM with automated WhatsApp notifications">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="app-layout">
+
+        <!-- ===== SIDEBAR NAVIGATION ===== -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <div class="sidebar-logo"><i data-lucide="activity"></i></div>
+                <div class="sidebar-brand-text">
+                    <span class="sidebar-brand-name">MediFlow</span>
+                    <span class="sidebar-brand-tag">Smart CRM</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-tab="dashboard" id="nav-dashboard">
+                    <i data-lucide="layout-dashboard"></i><span>Dashboard</span>
+                </button>
+                <button class="nav-item" data-tab="inventory" id="nav-inventory">
+                    <i data-lucide="package"></i><span>Inventory</span>
+                    <span class="nav-badge badge-rose" id="inventory-alert-count">5</span>
+                </button>
+                <button class="nav-item" data-tab="patients" id="nav-patients">
+                    <i data-lucide="users"></i><span>Patients</span>
+                </button>
+                <button class="nav-item" data-tab="followups" id="nav-followups">
+                    <i data-lucide="bell-ring"></i><span>Follow-ups</span>
+                    <span class="nav-badge" id="followup-count">24</span>
+                </button>
+                <div class="nav-divider"></div>
+                <button class="nav-item" data-tab="analytics" id="nav-analytics">
+                    <i data-lucide="bar-chart-3"></i><span>Analytics</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-avatar">K</div>
+                    <div class="sidebar-user-info">
+                        <span class="sidebar-username">Dr. Kapoor</span>
+                        <span class="sidebar-role">Pharmacy Admin</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!-- Sidebar backdrop for mobile -->
+        <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+        <!-- ===== MAIN CONTENT AREA ===== -->
+        <div class="main-wrapper">
+
+            <!-- Top Header Bar -->
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button class="hamburger" id="hamburger-btn" aria-label="Toggle menu">
+                        <i data-lucide="menu" style="width:20px;height:20px"></i>
+                    </button>
+                    <div>
+                        <h1 id="page-title" class="page-title">Dashboard</h1>
+                        <p id="page-subtitle" class="page-subtitle">Overview of pharmacy operations</p>
+                    </div>
+                </div>
+                <div class="top-bar-center">
+                    <div class="engine-mini">
+                        <div class="engine-mini-icon"><i data-lucide="cpu" style="width:14px;height:14px"></i></div>
+                        <span class="engine-mini-label">Engine Date:</span>
+                        <span id="engine-current-date" class="highlight-date">Loading...</span>
+                        <button id="btn-simulate-day" class="btn-simulate">
+                            <i data-lucide="fast-forward" style="width:13px;height:13px"></i> Next Day
+                        </button>
+                    </div>
+                </div>
+                <div class="top-bar-right">
+                    <span class="status-badge">
+                        <span class="status-dot"></span>
+                        WhatsApp API: Connected
+                    </span>
+                </div>
+            </header>
+
+            <!-- Content + WhatsApp Split -->
+            <div class="content-layout">
+
+                <!-- Scrollable Tab Content -->
+                <div class="content-scroll" id="content-scroll">
+                    <div id="tab-dashboard" class="tab-content active"></div>
+                    <div id="tab-inventory" class="tab-content"></div>
+                    <div id="tab-patients" class="tab-content"></div>
+                    <div id="tab-followups" class="tab-content"></div>
+                    <div id="tab-analytics" class="tab-content"></div>
+                </div>
+
+                <!-- Persistent WhatsApp Phone Panel -->
+                <aside class="whatsapp-panel">
+                    <div class="wa-panel-title">
+                        <i data-lucide="smartphone" style="width:14px;height:14px"></i>
+                        Live Patient Preview
+                    </div>
+                    <div class="phone-wrapper">
+                        <div class="phone-status-bar">
+                            <span>11:37 AM</span>
+                            <div class="phone-notch"></div>
+                            <div class="phone-status-icons">
+                                <i data-lucide="signal" style="height:12px;width:12px"></i>
+                                <i data-lucide="battery" style="height:12px;width:12px"></i>
+                            </div>
+                        </div>
+                        <div class="wa-app">
+                            <div class="wa-header">
+                                <i data-lucide="arrow-left" style="height:16px;width:16px;cursor:pointer"></i>
+                                <div class="wa-avatar">M</div>
+                                <div class="wa-contact-info">
+                                    <h4 id="whatsapp-contact-name" class="wa-name">MediFlow Bot</h4>
+                                    <p class="wa-status">Official Business Account</p>
+                                </div>
+                            </div>
+                            <div id="whatsapp-chat-body" class="wa-chat-body">
+                                <div id="empty-state-prompt" class="empty-state">
+                                    <div class="empty-state-icon"><i data-lucide="message-circle"></i></div>
+                                    <p class="empty-state-text">Click any <span class="highlight-text">"Notify"</span>
+                                        or <span class="highlight-text">"Send Alert"</span> button to preview the
+                                        automated WhatsApp message here.</p>
+                                </div>
+                            </div>
+                            <div class="wa-footer">
+                                <div class="wa-input">Type a response...</div>
+                                <div class="wa-mic-btn"><i data-lucide="mic" style="height:16px;width:16px"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp floating toggle for mobile/tablet -->
+    <button class="wa-fab" id="wa-fab" aria-label="Toggle WhatsApp preview">
+        <i data-lucide="message-circle" style="width:24px;height:24px"></i>
+        <span class="wa-fab-badge" id="wa-fab-badge">0</span>
+    </button>
+
+    <!-- ===== ADD PATIENT MODAL ===== -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <div>
+                    <h3 class="modal-title">Add New Patient</h3>
+                    <p class="modal-sub">Register patient and create automatic follow-up cycle</p>
+                </div>
+                <button class="modal-close" id="modal-close-btn" aria-label="Close">&times;</button>
+            </div>
+            <form id="add-patient-form" autocomplete="off">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="f-name">Patient Name *</label>
+                        <input type="text" id="f-name" placeholder="e.g. Ramesh Sharma" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="f-phone">Phone Number *</label>
+                        <input type="tel" id="f-phone" placeholder="+91-XXXXX-XXXXX" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="f-condition">Medical Condition *</label>
+                    <input type="text" id="f-condition" placeholder="e.g. Type 2 Diabetes, Hypertension" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="f-medicine">Medicine Name *</label>
+                        <input type="text" id="f-medicine" placeholder="e.g. Metformin 500mg" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="f-supply">Days of Supply *</label>
+                        <input type="number" id="f-supply" value="30" min="1" max="365" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="f-lastpurchase">Last Purchase Date *</label>
+                    <input type="date" id="f-lastpurchase" required>
+                </div>
+                <div class="form-info">
+                    <i data-lucide="info" style="width:14px;height:14px;flex-shrink:0"></i>
+                    <span>A follow-up reminder will be auto-created using: <strong>Alert = (Purchase Date + Supply Days)
+                            &minus; 3 Days</strong>. A welcome WhatsApp message will be sent immediately.</span>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="modal-cancel-btn">Cancel</button>
+                    <button type="submit" class="btn btn-emerald btn-form-submit">
+                        <i data-lucide="user-plus" style="width:14px;height:14px"></i> Add Patient & Create Follow-up
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
